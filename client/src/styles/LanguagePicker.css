@@ -11,7 +11,7 @@
   font-size: 0.8rem;
   padding: 0.3rem 0.5rem;
   cursor: pointer;
-  outline: none;
+  outline: 2px solid transparent;
   transition: border-color 0.2s ease;
   max-width: 130px;
 }
