@@ -26,3 +26,9 @@
   background: #0a0e27;
   color: #00d9ff;
 }
+
+/* In RTL (Arabic) layout, keep picker anchored to the physical right edge */
+[dir="rtl"] .language-picker {
+  right: auto;
+  left: 1rem;
+}
