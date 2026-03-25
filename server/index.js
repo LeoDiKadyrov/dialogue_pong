@@ -114,7 +114,12 @@ io.on('connection', (socket) => {
     const roomId = playerToRoom.get(socket.id);
     const room = rooms.get(roomId);
     if (room) {
-      const playerId = socket.id === room.players.player1.id ? 'player1' : 'player2';
+      const playerId = socket.id === room.players.player1.id
+        ? 'player1'
+        : socket.id === room.players.player2.id
+          ? 'player2'
+          : null;
+      if (!playerId) return;
       room.handleInput(playerId, data.direction);
     }
   });
@@ -140,7 +145,12 @@ io.on('connection', (socket) => {
     const roomId = playerToRoom.get(socket.id);
     const room = rooms.get(roomId);
     if (room) {
-      const playerId = socket.id === room.players.player1.id ? 'player1' : 'player2';
+      const playerId = socket.id === room.players.player1.id
+        ? 'player1'
+        : socket.id === room.players.player2.id
+          ? 'player2'
+          : null;
+      if (!playerId) return;
       room.handleMessage(playerId, data.text);
     }
   });
