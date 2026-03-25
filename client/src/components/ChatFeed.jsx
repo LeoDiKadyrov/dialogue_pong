@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PLAYER_1, COLOR_PADDLE_P1, COLOR_PADDLE_P2 } from '@shared/constants.js';
 import '../styles/ChatFeed.css';
 
@@ -7,6 +8,7 @@ import '../styles/ChatFeed.css';
  * Auto-scrolls to show newest messages
  */
 function ChatFeed({ messages }) {
+  const { t } = useTranslation();
   const feedRef = useRef(null);
 
   // Auto-scroll to bottom when new messages arrive
@@ -19,7 +21,7 @@ function ChatFeed({ messages }) {
   return (
     <div className="chat-feed" ref={feedRef} aria-live="polite" aria-label="Conversation feed">
       {messages.length === 0 ? (
-        <p className="chat-empty">Hit the ball to start the conversation...</p>
+        <p className="chat-empty">{t('chat.empty')}</p>
       ) : (
         messages.map((msg, idx) => (
           <div

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles/GameOverScreen.css';
 
 /**
@@ -11,10 +12,11 @@ import '../styles/GameOverScreen.css';
  * @param {function} onMainMenu - return to main menu
  */
 function GameOverScreen({ reason, messages, playerId, onPlayAgain, onMainMenu }) {
+  const { t } = useTranslation();
   const reasonText =
     reason === 'opponentLeft'
-      ? 'Your opponent disconnected.'
-      : 'You left the game.';
+      ? t('gameover.opponentLeft')
+      : t('gameover.youLeft');
 
   /**
    * Download the full dialogue as a .txt file via Blob API.
@@ -42,13 +44,13 @@ function GameOverScreen({ reason, messages, playerId, onPlayAgain, onMainMenu })
   return (
     <div className="gameover-overlay">
       <div className="gameover-container">
-        <h1 className="gameover-title">Game Over</h1>
+        <h1 className="gameover-title">{t('gameover.title')}</h1>
         <p className="gameover-reason">{reasonText}</p>
 
         <div className="gameover-history">
-          <h2 className="gameover-history-title">Conversation</h2>
+          <h2 className="gameover-history-title">{t('gameover.conversation')}</h2>
           {messages.length === 0 ? (
-            <p className="gameover-no-messages">No messages were exchanged.</p>
+            <p className="gameover-no-messages">{t('gameover.noMessages')}</p>
           ) : (
             <ul className="gameover-messages">
               {messages.map(({ player, text, timestamp }, i) => {
@@ -58,7 +60,7 @@ function GameOverScreen({ reason, messages, playerId, onPlayAgain, onMainMenu })
                     key={i}
                     className={`gameover-message ${isMe ? 'gameover-message-mine' : 'gameover-message-theirs'}`}
                   >
-                    <span className="gameover-message-label">{isMe ? 'You' : 'Opponent'}</span>
+                    <span className="gameover-message-label">{isMe ? t('gameover.labelYou') : t('gameover.labelOpponent')}</span>
                     <span className="gameover-message-text">{text}</span>
                   </li>
                 );
@@ -70,14 +72,14 @@ function GameOverScreen({ reason, messages, playerId, onPlayAgain, onMainMenu })
         <div className="gameover-actions">
           {messages.length > 0 && (
             <button className="gameover-btn gameover-btn-save" onClick={handleSave}>
-              Save Conversation
+              {t('gameover.saveConversation')}
             </button>
           )}
           <button className="gameover-btn gameover-btn-again" onClick={onPlayAgain}>
-            Play Again
+            {t('gameover.playAgain')}
           </button>
           <button className="gameover-btn gameover-btn-menu" onClick={onMainMenu}>
-            Main Menu
+            {t('gameover.mainMenu')}
           </button>
         </div>
       </div>

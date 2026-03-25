@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   PLAYER_1,
   MESSAGE_MAX_LENGTH,
@@ -16,6 +17,7 @@ import '../styles/DialogueModal.css';
  * Shows only to the player whose paddle was just hit
  */
 function DialogueModal({ player, onSubmit }) {
+  const { t } = useTranslation();
   const [text, setText] = useState('');
   const [timeLeft, setTimeLeft] = useState(DIALOGUE_TIMEOUT_MS / 1000);
   const [submitted, setSubmitted] = useState(false);
@@ -26,7 +28,7 @@ function DialogueModal({ player, onSubmit }) {
 
   // Determine player label and color
   const isPlayer1 = player === PLAYER_1;
-  const playerLabel = isPlayer1 ? 'Player 1' : 'Player 2';
+  const playerLabel = isPlayer1 ? t('howtoplay.player1') : t('howtoplay.player2');
   const playerColor = isPlayer1 ? COLOR_PADDLE_P1 : COLOR_PADDLE_P2;
 
   // On mount: play whoosh, duck background music
@@ -90,7 +92,7 @@ function DialogueModal({ player, onSubmit }) {
     <div className="dialogue-modal-overlay">
       <div className="dialogue-modal" style={{ borderColor: playerColor }}>
         <h2 className="dialogue-header" style={{ color: playerColor }}>
-          {playerLabel}, say something...
+          {t('dialogue.header', { playerLabel })}
         </h2>
 
         <textarea
@@ -99,7 +101,7 @@ function DialogueModal({ player, onSubmit }) {
           value={text}
           onChange={handleTextChange}
           onKeyDown={handleKeyDown}
-          placeholder="Type your message (1-200 chars)..."
+          placeholder={t('dialogue.placeholder')}
           maxLength={MESSAGE_MAX_LENGTH}
           disabled={submitted}
           style={{ borderColor: playerColor }}
@@ -124,12 +126,12 @@ function DialogueModal({ player, onSubmit }) {
               opacity: isDisabled ? 0.5 : 1,
             }}
           >
-            Send →
+            {t('dialogue.send')}
           </button>
         </div>
 
         {submitted && (
-          <p className="dialogue-submitting">Submitting...</p>
+          <p className="dialogue-submitting">{t('dialogue.submitting')}</p>
         )}
       </div>
     </div>

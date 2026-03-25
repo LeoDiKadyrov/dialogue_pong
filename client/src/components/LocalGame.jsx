@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCanvasScale } from '../hooks/useCanvasScale.js';
 import {
   FIELD_WIDTH,
@@ -33,6 +34,7 @@ import VolumeControl from './VolumeControl.jsx';
  * Props: onBack (callback to return to menu)
  */
 function LocalGame({ onBack }) {
+  const { t } = useTranslation();
   // Scale factor for mobile — CSS transform scales the game wrapper without
   // touching physics coordinates (which always run at 800×600 internally).
   const scale = useCanvasScale();
@@ -223,7 +225,7 @@ function LocalGame({ onBack }) {
 
   return (
     <div className="app-container">
-      <h1 className="app-title">Dialogue Pong — Local</h1>
+      <h1 className="app-title">{t('appTitleLocal')}</h1>
 
       <div style={{
         height: scale < 1 ? `${(FIELD_HEIGHT + GAME_WRAPPER_EXTRA_HEIGHT) * scale}px` : undefined,
@@ -248,14 +250,14 @@ function LocalGame({ onBack }) {
       <div className="controls">
         <RestartButton onRestart={handleRestart} />
         <button className="back-button" onClick={onBack}>
-          ← Back to Menu
+          {t('controls.backToMenu')}
         </button>
         <VolumeControl />
       </div>
 
       <div className="instructions">
-        <p><strong>Player 1:</strong> W (up) / S (down)</p>
-        <p><strong>Player 2:</strong> Arrow Up / Arrow Down</p>
+        <p>{t('controls.player1Instructions')}</p>
+        <p>{t('controls.player2Instructions')}</p>
       </div>
     </div>
   );

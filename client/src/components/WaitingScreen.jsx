@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles/WaitingScreen.css';
 
 /**
@@ -6,9 +7,10 @@ import '../styles/WaitingScreen.css';
  * Props: onCancel (callback to leave queue and return to menu)
  */
 function WaitingScreen({ onCancel }) {
+  const { t } = useTranslation();
   return (
     <div className="waiting-container">
-      <h1 className="waiting-title">Searching for Opponent...</h1>
+      <h1 className="waiting-title">{t('waiting.title')}</h1>
 
       <div className="waiting-spinner">
         <div className="spinner-ring"></div>
@@ -18,11 +20,11 @@ function WaitingScreen({ onCancel }) {
       </div>
 
       <p className="waiting-text">
-        Finding your next conversation partner...
+        {t('waiting.text')}
       </p>
 
       <button className="waiting-cancel-button" onClick={onCancel}>
-        Cancel
+        {t('waiting.cancel')}
       </button>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles/SessionTimer.css';
 
 /**
@@ -6,6 +7,7 @@ import '../styles/SessionTimer.css';
  * Replaces ScoreBoard: conveys "how long have we been talking" without competitive scores.
  */
 function SessionTimer() {
+  const { t } = useTranslation();
   const [elapsed, setElapsed] = useState(0); // seconds
   const intervalRef = useRef(null);
 
@@ -26,7 +28,7 @@ function SessionTimer() {
 
   return (
     <div className="session-timer" aria-label="Session duration">
-      <span className="session-timer-label">session</span>
+      <span className="session-timer-label">{t('session.label')}</span>
       <span className="session-timer-value">{display}</span>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCanvasScale } from '../hooks/useCanvasScale.js';
 import {
   FIELD_WIDTH,
@@ -46,6 +47,7 @@ const TRAIL_MAX = 6;
  * Props: socket, playerId, roomId, onLeave, onPlayAgain
  */
 function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
+  const { t } = useTranslation();
   // Scale factor for mobile — CSS transform scales the game wrapper without
   // touching physics coordinates (which always run at 800×600 internally).
   const scale = useCanvasScale();
@@ -287,7 +289,7 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
 
   return (
     <div className="app-container">
-      <h1 className="app-title">Dialogue Pong — Online ({playerId === PLAYER_1 ? 'P1' : 'P2'})</h1>
+      <h1 className="app-title">{t('appTitleOnline', { player: playerId === PLAYER_1 ? 'P1' : 'P2' })}</h1>
 
       <div style={{
         height: scale < 1 ? `${(FIELD_HEIGHT + GAME_WRAPPER_EXTRA_HEIGHT) * scale}px` : undefined,
@@ -316,14 +318,14 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
 
       <div className="controls">
         <button className="back-button" onClick={handleLeaveGame}>
-          ← Leave Game
+          {t('controls.leaveGame')}
         </button>
         <VolumeControl />
       </div>
 
       <div className="instructions">
-        <p><strong>{isPlayer1 ? 'You' : 'Opponent'}:</strong> W/S (up/down)</p>
-        <p><strong>{!isPlayer1 ? 'You' : 'Opponent'}:</strong> Arrow Up/Down</p>
+        <p>{t('controls.youInstructions', { keys: isPlayer1 ? 'W/S' : '↑/↓' })}</p>
+        <p>{t('controls.opponentInstructions', { keys: isPlayer1 ? '↑/↓' : 'W/S' })}</p>
       </div>
     </div>
   );
