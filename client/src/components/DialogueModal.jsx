@@ -20,6 +20,9 @@ function DialogueModal({ player, onSubmit }) {
   const [timeLeft, setTimeLeft] = useState(DIALOGUE_TIMEOUT_MS / 1000);
   const [submitted, setSubmitted] = useState(false);
   const textareaRef = useRef(null);
+  // Refs so timer callbacks always read latest values without stale closure issues
+  const textRef = useRef('');
+  const submittedRef = useRef(false);
 
   // Determine player label and color
   const isPlayer1 = player === PLAYER_1;
@@ -40,31 +43,35 @@ function DialogueModal({ player, onSubmit }) {
   // Timer countdown
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft((t) => {
-        if (t <= 1) {
-          clearInterval(interval);
-          // Auto-submit silence if timer expires
-          handleSubmit('...');
-          return 0;
-        }
-        return t - 1;
-      });
+      setTimeLeft((t) => (t <= 1 ? (clearInterval(interval), 0) : t - 1));
     }, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
-  const handleSubmit = (messageText = text) => {
-    if (submitted) return;
+  // Auto-submit when timer hits 0
+  useEffect(() => {
+    if (timeLeft === 0 && !submittedRef.current) {
+      submittedRef.current = true;
+      setSubmitted(true);
+      soundManager.play('sendAlert');
+      // Send whatever was typed, or '...' if nothing
+      onSubmit(textRef.current || '...');
+    }
+  }, [timeLeft, onSubmit]);
+
+  const handleSubmit = () => {
+    if (submittedRef.current) return;
+    submittedRef.current = true;
     setSubmitted(true);
     soundManager.play('sendAlert');
-    onSubmit(messageText || '...');
+    onSubmit(textRef.current || '...');
   };
 
   const handleTextChange = (e) => {
     const newText = e.target.value;
     if (newText.length <= MESSAGE_MAX_LENGTH) {
       setText(newText);
+      textRef.current = newText;
     }
   };
 
