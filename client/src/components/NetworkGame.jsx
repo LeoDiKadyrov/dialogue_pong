@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useCanvasScale } from '../hooks/useCanvasScale.js';
 import {
   FIELD_WIDTH,
   FIELD_HEIGHT,
@@ -47,17 +48,7 @@ const TRAIL_MAX = 6;
 function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
   // Scale factor for mobile — CSS transform scales the game wrapper without
   // touching physics coordinates (which always run at 800×600 internally).
-  const [scale, setScale] = useState(() => Math.min(1, (window.innerWidth - 32) / 800));
-
-  useEffect(() => {
-    const handleResize = () => setScale(Math.min(1, (window.innerWidth - 32) / 800));
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleResize);
-    };
-  }, []);
+  const scale = useCanvasScale();
 
   // Game state is entirely driven by the server
   const canvasRef = useRef(null);
@@ -291,13 +282,15 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
     );
   }
 
+  // SessionTimer: ~44px rendered height + 16px gap below canvas
+  const GAME_WRAPPER_EXTRA_HEIGHT = 60;
+
   return (
     <div className="app-container">
       <h1 className="app-title">Dialogue Pong — Online ({playerId === PLAYER_1 ? 'P1' : 'P2'})</h1>
 
       <div style={{
-        height: scale < 1 ? `${(FIELD_HEIGHT + 60) * scale}px` : undefined,
-        overflow: 'visible',
+        height: scale < 1 ? `${(FIELD_HEIGHT + GAME_WRAPPER_EXTRA_HEIGHT) * scale}px` : undefined,
       }}>
         <div className="game-wrapper" style={{
           transform: `scale(${scale})`,
