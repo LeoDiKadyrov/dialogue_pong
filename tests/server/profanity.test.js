@@ -36,4 +36,23 @@ describe('filterMessage (server)', () => {
   it('returns an empty string unchanged', () => {
     expect(filterMessage('')).toBe('');
   });
+
+  // Unicode normalization cases
+  it('filters accented variants', () => {
+    const result = filterMessage('fück this');
+    expect(result).not.toContain('fück');
+    expect(result).toContain('***');
+  });
+
+  it('filters leet substitution f4ck', () => {
+    const result = filterMessage('f4ck this');
+    expect(result).not.toContain('f4ck');
+    expect(result).toContain('***');
+  });
+
+  it('filters leet substitution sh1t', () => {
+    const result = filterMessage('sh1t happens');
+    expect(result).not.toContain('sh1t');
+    expect(result).toContain('***');
+  });
 });

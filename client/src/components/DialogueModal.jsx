@@ -46,7 +46,7 @@ function DialogueModal({ player, onSubmit }) {
       setTimeLeft((t) => (t <= 1 ? (clearInterval(interval), 0) : t - 1));
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [onSubmit]);
 
   // Auto-submit when timer hits 0
   useEffect(() => {
@@ -78,6 +78,7 @@ function DialogueModal({ player, onSubmit }) {
   const handleKeyDown = (e) => {
     // Submit on Ctrl+Enter or Cmd+Enter
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      if (text.trim().length === 0) return;
       handleSubmit();
     }
   };

@@ -20,7 +20,7 @@ import { filterMessage } from '../game/profanity.js';
 import { spawnParticles } from '../game/particles.js';
 import soundManager from '../audio/soundManager.js';
 import GameCanvas from './GameCanvas.jsx';
-import ScoreBoard from './ScoreBoard.jsx';
+import SessionTimer from './SessionTimer.jsx';
 import RestartButton from './RestartButton.jsx';
 import DialogueModal from './DialogueModal.jsx';
 import ChatFeed from './ChatFeed.jsx';
@@ -67,9 +67,6 @@ function LocalGame({ onBack }) {
   const particlesRef = useRef([]);
   const ballTrailRef = useRef([]);
 
-  // React state for UI updates (score display in ScoreBoard)
-  const [scores, setScores] = useState({ player1: 0, player2: 0 });
-
   // Dialogue state (Phase 2+)
   const [dialogueState, setDialogueState] = useState(null); // null | 'player1' | 'player2'
   const [messages, setMessages] = useState([]); // { player, text, timestamp }[]
@@ -115,6 +112,7 @@ function LocalGame({ onBack }) {
       inputHandlers.current.detach();
       gameLoop.current.stop();
       soundManager.stopBgMusic();
+      soundManager.close();
     };
   }, []);
 
@@ -127,12 +125,6 @@ function LocalGame({ onBack }) {
 
     // Update scores ref
     scoresRef.current[scorer === PLAYER_1 ? 'player1' : 'player2']++;
-
-    // Update React state to trigger UI re-render
-    setScores({
-      player1: scoresRef.current.player1,
-      player2: scoresRef.current.player2,
-    });
   };
 
   /**
@@ -205,7 +197,6 @@ function LocalGame({ onBack }) {
 
     // Reset scores
     scoresRef.current = { player1: 0, player2: 0 };
-    setScores({ player1: 0, player2: 0 });
 
     // Reset dialogue state (Phase 2+)
     setDialogueState(null);
@@ -228,7 +219,7 @@ function LocalGame({ onBack }) {
 
       <div className="game-wrapper">
         <GameCanvas ref={canvasRef} />
-        <ScoreBoard score1={scores.player1} score2={scores.player2} />
+        <SessionTimer />
         {dialogueState && (
           <DialogueModal
             player={dialogueState}

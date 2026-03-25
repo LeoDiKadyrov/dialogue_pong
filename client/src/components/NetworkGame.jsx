@@ -28,7 +28,7 @@ import { renderFrame } from '../game/renderer.js';
 import { spawnParticles, updateParticles } from '../game/particles.js';
 import soundManager from '../audio/soundManager.js';
 import GameCanvas from './GameCanvas.jsx';
-import ScoreBoard from './ScoreBoard.jsx';
+import SessionTimer from './SessionTimer.jsx';
 import ChatFeed from './ChatFeed.jsx';
 import DialogueModal from './DialogueModal.jsx';
 import WaitingOverlay from './WaitingOverlay.jsx';
@@ -66,7 +66,6 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
   const dialogueStateRef = useRef(null);
 
   // React state
-  const [scores, setScores] = useState({ player1: 0, player2: 0 });
   const [dialogueState, setDialogueState] = useState(null); // null | 'mine' | 'opponent'
   const [messages, setMessages] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
@@ -222,7 +221,6 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
     socket.on(EV_GOAL, ({ scorer, scores, ball }) => {
       soundManager.play('goal');
       scoresRef.current = { ...scores };
-      setScores({ ...scores });
       // Clear trail on goal so old positions don't show at wrong location
       ballTrailRef.current = [];
       // Apply ball reset immediately so the ball snaps to center
@@ -244,6 +242,7 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
     socket.on(EV_OPPONENT_LEFT, () => {
       stopRenderLoop();
       soundManager.stopBgMusic();
+      ballTrailRef.current = [];
       setEndReason('opponentLeft');
       setGameEnded(true);
     });
@@ -262,6 +261,7 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
       socket.off(EV_OPPONENT_LEFT);
       stopRenderLoop();
       soundManager.stopBgMusic();
+      soundManager.close();
     };
   }, [playerId, socket]);
 
@@ -283,7 +283,7 @@ function NetworkGame({ socket, playerId, roomId, onLeave, onPlayAgain }) {
 
       <div className="game-wrapper">
         <GameCanvas ref={canvasRef} />
-        <ScoreBoard score1={scores.player1} score2={scores.player2} />
+        <SessionTimer />
 
         {dialogueState === 'mine' && (
           <DialogueModal

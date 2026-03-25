@@ -64,6 +64,8 @@ const rooms = new Map(); // roomId → GameRoom instance
 const playerToRoom = new Map(); // socketId → roomId
 const lastMessageTime = new Map(); // socketId → timestamp of last accepted EV_MESSAGE
 const MESSAGE_RATE_LIMIT_MS = 2000; // 2 seconds between messages (per CLAUDE.md)
+const lastInputTime = new Map();    // socketId → timestamp of last accepted EV_INPUT
+const INPUT_RATE_LIMIT_MS = 16;     // ~60fps max; blocks obvious spam above that
 
 /**
  * Handle a new socket connection
@@ -111,10 +113,21 @@ io.on('connection', (socket) => {
     // Validate: direction must be exactly -1, 0, or 1
     if (!data || ![-1, 0, 1].includes(data.direction)) return;
 
+    // Rate limit: cap at ~60fps to prevent input flooding
+    const inputNow = Date.now();
+    const lastInput = lastInputTime.get(socket.id) ?? 0;
+    if (inputNow - lastInput < INPUT_RATE_LIMIT_MS) return;
+    lastInputTime.set(socket.id, inputNow);
+
     const roomId = playerToRoom.get(socket.id);
     const room = rooms.get(roomId);
     if (room) {
-      const playerId = socket.id === room.players.player1.id ? 'player1' : 'player2';
+      const playerId = socket.id === room.players.player1.id
+        ? 'player1'
+        : socket.id === room.players.player2.id
+          ? 'player2'
+          : null;
+      if (!playerId) return;
       room.handleInput(playerId, data.direction);
     }
   });
@@ -140,7 +153,12 @@ io.on('connection', (socket) => {
     const roomId = playerToRoom.get(socket.id);
     const room = rooms.get(roomId);
     if (room) {
-      const playerId = socket.id === room.players.player1.id ? 'player1' : 'player2';
+      const playerId = socket.id === room.players.player1.id
+        ? 'player1'
+        : socket.id === room.players.player2.id
+          ? 'player2'
+          : null;
+      if (!playerId) return;
       room.handleMessage(playerId, data.text);
     }
   });
@@ -149,6 +167,7 @@ io.on('connection', (socket) => {
     console.log(`[Disconnect] ${socket.id}`);
     removeFromQueue(socket.id);
     lastMessageTime.delete(socket.id);
+    lastInputTime.delete(socket.id);
 
     const roomId = playerToRoom.get(socket.id);
     if (roomId) {
@@ -161,6 +180,7 @@ io.on('connection', (socket) => {
             : room.players.player1;
         playerToRoom.delete(otherSocket.id);
         lastMessageTime.delete(otherSocket.id);
+        lastInputTime.delete(otherSocket.id);
 
         room.handleDisconnect(socket.id);
         room.destroy();

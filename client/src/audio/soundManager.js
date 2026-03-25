@@ -320,6 +320,20 @@ function setMuted(muted) {
 
 function getIsMuted() { return isMuted; }
 
+/**
+ * Close the AudioContext — call when game session ends.
+ * Safe to call multiple times (guards on ctx).
+ */
+function close() {
+  if (!ctx) return;
+  stopBgMusic();
+  ctx.close();
+  ctx = null;
+  masterGain = null;
+  musicGain = null;
+  sfxGain = null;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Public API
 // ─────────────────────────────────────────────────────────────────────────────
@@ -340,6 +354,7 @@ const soundManager = {
   getSfxVolume,
   setMuted,
   getIsMuted,
+  close,
 };
 
 export default soundManager;

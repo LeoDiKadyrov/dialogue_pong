@@ -1,0 +1,19 @@
+.session-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.session-timer-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #555;
+}
+
+.session-timer-value {
+  font-size: 18px;
+  font-family: monospace;
+  color: #aaa;
+}
