@@ -7,7 +7,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Dynamically imported after resetModules() so each test gets fresh state
-let recordGameStarted, recordGameCompleted, recordMessage, getStats, recordPlayersJoined;
+let recordGameStarted, recordGameCompleted, recordMessage, getStats;
 
 beforeEach(async () => {
   vi.resetModules();
@@ -16,7 +16,6 @@ beforeEach(async () => {
   recordGameCompleted = mod.recordGameCompleted;
   recordMessage      = mod.recordMessage;
   getStats           = mod.getStats;
-  recordPlayersJoined = mod.recordPlayersJoined;
 });
 
 describe('initial state', () => {
@@ -25,7 +24,6 @@ describe('initial state', () => {
     expect(s.totalGamesStarted).toBe(0);
     expect(s.totalGamesCompleted).toBe(0);
     expect(s.totalMessages).toBe(0);
-    expect(s.totalPlayersJoined).toBe(0);
     expect(s.avgDialogueDurationMs).toBe(0);
     expect(s.avgDialogueDurationSec).toBe(0);
   });
@@ -108,21 +106,3 @@ describe('getStats averages', () => {
   });
 });
 
-describe('recordPlayersJoined', () => {
-  it('increments totalPlayersJoined by 2', () => {
-    recordPlayersJoined();
-    expect(getStats().totalPlayersJoined).toBe(2);
-  });
-
-  it('accumulates across multiple calls', () => {
-    recordPlayersJoined();
-    recordPlayersJoined();
-    expect(getStats().totalPlayersJoined).toBe(4);
-  });
-});
-
-describe('getStats includes totalPlayersJoined', () => {
-  it('starts at 0', () => {
-    expect(getStats().totalPlayersJoined).toBe(0);
-  });
-});

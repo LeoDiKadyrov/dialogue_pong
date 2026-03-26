@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import { addToQueue, removeFromQueue, tryMatch } from './matchmaking/queue.js';
 import { createGameRoom } from './game/room.js';
-import { recordGameStarted, recordGameCompleted, recordPlayersJoined, getStats } from './analytics.js';
+import { recordGameStarted, recordGameCompleted, getStats } from './analytics.js';
 import {
   SERVER_PORT,
   EV_JOIN_QUEUE,
@@ -33,10 +33,10 @@ app.use(express.json());
 
 /**
  * GET /api/stats — In-memory analytics snapshot.
- * Returns game counts and average dialogue duration.
+ * Returns game counts, average dialogue duration, and live socket count.
  */
 app.get('/api/stats', (_req, res) => {
-  res.json(getStats());
+  res.json({ ...getStats(), onlinePlayers: io.sockets.sockets.size });
 });
 
 // In production, serve the built React client from client/dist/
@@ -101,7 +101,6 @@ io.on('connection', (socket) => {
       // Start the game room
       gameRoom.start();
       recordGameStarted();
-      recordPlayersJoined();
     }
   });
 

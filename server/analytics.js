@@ -10,7 +10,6 @@ const stats = {
   totalMessages: 0,
   totalDialogueTimeMs: 0,
   dialogueCount: 0,
-  totalPlayersJoined: 0,
   serverStartedAt: Date.now(),
 };
 
@@ -22,14 +21,6 @@ export function recordGameStarted() {
 /** Called when a game ends (disconnect or natural end). */
 export function recordGameCompleted() {
   stats.totalGamesCompleted++;
-}
-
-/**
- * Called when a match is made. Increments totalPlayersJoined by 2
- * because each room always has exactly 2 players.
- */
-export function recordPlayersJoined() {
-  stats.totalPlayersJoined += 2;
 }
 
 /**
@@ -54,7 +45,6 @@ export function getStats() {
     totalGamesStarted: stats.totalGamesStarted,
     totalGamesCompleted: stats.totalGamesCompleted,
     totalMessages: stats.totalMessages,
-    totalPlayersJoined: stats.totalPlayersJoined,
     avgDialogueDurationMs: avgMs,
     avgDialogueDurationSec: +(avgMs / 1000).toFixed(1),
     serverUptimeMs: Date.now() - stats.serverStartedAt,

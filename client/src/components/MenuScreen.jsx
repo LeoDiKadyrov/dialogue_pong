@@ -20,7 +20,7 @@ function MenuScreen({ onLocal, onOnline }) {
         if (!res.ok) return;
         const data = await res.json();
         setStats({
-          totalPlayers: data.totalPlayersJoined,
+          totalPlayers: data.onlinePlayers,
           totalDialogues: data.totalMessages,
         });
       } catch {
