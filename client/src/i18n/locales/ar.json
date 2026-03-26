@@ -1,8 +1,8 @@
 {
-  "appTitle": "بينج التحاور",
-  "appTitleLocal": "بينج التحاور — محلي",
-  "appTitleOnline": "بينج التحاور — أونلاين ({{player}})",
-  "menu.subtitle": "حوّل بينج إلى محادثة مع الغرباء",
+  "appTitle": "شات بونغ",
+  "appTitleLocal": "شات بونغ — محلي",
+  "appTitleOnline": "شات بونغ — أونلاين ({{player}})",
+  "menu.subtitle": "Chpong",
   "menu.playLocal": "لعب محلي",
   "menu.playLocalDesc": "لاعبان، نفس الشاشة",
   "menu.playOnline": "لعب أونلاين",

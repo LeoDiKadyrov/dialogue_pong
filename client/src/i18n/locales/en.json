@@ -1,8 +1,8 @@
 {
-  "appTitle": "Dialogue Pong",
-  "appTitleLocal": "Dialogue Pong — Local",
-  "appTitleOnline": "Dialogue Pong — Online ({{player}})",
-  "menu.subtitle": "Turn Pong into a conversation with strangers",
+  "appTitle": "Chat Pong",
+  "appTitleLocal": "Chat Pong — Local",
+  "appTitleOnline": "Chat Pong — Online ({{player}})",
+  "menu.subtitle": "Chpong",
   "menu.playLocal": "Play Local",
   "menu.playLocalDesc": "2 players, same screen",
   "menu.playOnline": "Play Online",

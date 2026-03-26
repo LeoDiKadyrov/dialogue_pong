@@ -1,8 +1,8 @@
 {
-  "appTitle": "ダイアローグポン",
-  "appTitleLocal": "ダイアローグポン — ローカル",
-  "appTitleOnline": "ダイアローグポン — オンライン ({{player}})",
-  "menu.subtitle": "ポンを見知らぬ人との会話に変えよう",
+  "appTitle": "チャットポン",
+  "appTitleLocal": "チャットポン — ローカル",
+  "appTitleOnline": "チャットポン — オンライン ({{player}})",
+  "menu.subtitle": "Chpong",
   "menu.playLocal": "ローカルプレイ",
   "menu.playLocalDesc": "2人、同じ画面",
   "menu.playOnline": "オンラインプレイ",

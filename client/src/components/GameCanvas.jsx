@@ -12,7 +12,7 @@ const GameCanvas = React.forwardRef((props, ref) => {
       ref={ref}
       width={FIELD_WIDTH}
       height={FIELD_HEIGHT}
-      aria-label="Dialogue Pong game canvas"
+      aria-label="Chat Pong game canvas"
       className="game-canvas"
     />
   );

@@ -23,14 +23,14 @@ function GameOverScreen({ reason, messages, playerId, onPlayAgain, onMainMenu })
    * Includes timestamp, players, and each message.
    */
   const handleSave = () => {
-    const lines = ['Dialogue Pong — Conversation Log', '='.repeat(40), ''];
+    const lines = ['Chat Pong — Conversation Log', '='.repeat(40), ''];
     messages.forEach(({ player, text, timestamp }) => {
       const time = new Date(timestamp).toLocaleTimeString();
       const label = player === playerId ? t('gameover.labelYou') : t('gameover.labelOpponent');
       lines.push(`[${time}] ${label}: ${text}`);
     });
     lines.push('', '='.repeat(40));
-    lines.push(`Exported from Dialogue Pong on ${new Date().toLocaleDateString()}`);
+    lines.push(`Exported from Chat Pong on ${new Date().toLocaleDateString()}`);
 
     const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);

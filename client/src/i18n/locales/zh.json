@@ -1,8 +1,8 @@
 {
-  "appTitle": "对话乒乓",
-  "appTitleLocal": "对话乒乓 — 本地",
-  "appTitleOnline": "对话乒乓 — 在线 ({{player}})",
-  "menu.subtitle": "把乒乓变成与陌生人的对话",
+  "appTitle": "聊天乒乓",
+  "appTitleLocal": "聊天乒乓 — 本地",
+  "appTitleOnline": "聊天乒乓 — 在线 ({{player}})",
+  "menu.subtitle": "Chpong",
   "menu.playLocal": "本地游戏",
   "menu.playLocalDesc": "2名玩家，同一屏幕",
   "menu.playOnline": "在线游戏",

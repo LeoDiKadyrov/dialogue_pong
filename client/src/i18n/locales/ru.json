@@ -1,8 +1,8 @@
 {
-  "appTitle": "Диалог Понг",
-  "appTitleLocal": "Диалог Понг — Локальная",
-  "appTitleOnline": "Диалог Понг — Онлайн ({{player}})",
-  "menu.subtitle": "Превратите Понг в диалог с незнакомцами",
+  "appTitle": "Чат Понг",
+  "appTitleLocal": "Чат Понг — Локальная",
+  "appTitleOnline": "Чат Понг — Онлайн ({{player}})",
+  "menu.subtitle": "Chpong",
   "menu.playLocal": "Локальная игра",
   "menu.playLocalDesc": "2 игрока, один экран",
   "menu.playOnline": "Онлайн",
