@@ -46,5 +46,7 @@
   "controls.player1Instructions": "Игрок 1: W (вверх) / S (вниз)",
   "controls.player2Instructions": "Игрок 2: ↑ / ↓",
   "controls.youInstructions": "Вы: {{keys}}",
-  "controls.opponentInstructions": "Соперник: {{keys}}"
+  "controls.opponentInstructions": "Соперник: {{keys}}",
+  "menu.stats.playersLabel": "игроков",
+  "menu.stats.dialoguesLabel": "диалогов"
 }

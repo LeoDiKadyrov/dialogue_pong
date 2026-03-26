@@ -46,5 +46,7 @@
   "controls.player1Instructions": "プレイヤー1: W（上）/ S（下）",
   "controls.player2Instructions": "プレイヤー2: ↑ / ↓",
   "controls.youInstructions": "あなた: {{keys}}",
-  "controls.opponentInstructions": "相手: {{keys}}"
+  "controls.opponentInstructions": "相手: {{keys}}",
+  "menu.stats.playersLabel": "プレイヤー",
+  "menu.stats.dialoguesLabel": "ダイアローグ"
 }

@@ -16,7 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import { addToQueue, removeFromQueue, tryMatch } from './matchmaking/queue.js';
 import { createGameRoom } from './game/room.js';
-import { recordGameStarted, recordGameCompleted, getStats } from './analytics.js';
+import { recordGameStarted, recordGameCompleted, recordPlayersJoined, getStats } from './analytics.js';
 import {
   SERVER_PORT,
   EV_JOIN_QUEUE,
@@ -101,6 +101,7 @@ io.on('connection', (socket) => {
       // Start the game room
       gameRoom.start();
       recordGameStarted();
+      recordPlayersJoined();
     }
   });
 

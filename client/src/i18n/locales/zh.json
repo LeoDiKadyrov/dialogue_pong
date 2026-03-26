@@ -46,5 +46,7 @@
   "controls.player1Instructions": "玩家1：W（上）/ S（下）",
   "controls.player2Instructions": "玩家2：↑ / ↓",
   "controls.youInstructions": "你：{{keys}}",
-  "controls.opponentInstructions": "对手：{{keys}}"
+  "controls.opponentInstructions": "对手：{{keys}}",
+  "menu.stats.playersLabel": "玩家",
+  "menu.stats.dialoguesLabel": "对话"
 }

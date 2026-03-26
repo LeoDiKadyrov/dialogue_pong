@@ -46,5 +46,7 @@
   "controls.player1Instructions": "Spieler 1: W (hoch) / S (runter)",
   "controls.player2Instructions": "Spieler 2: ↑ / ↓",
   "controls.youInstructions": "Du: {{keys}}",
-  "controls.opponentInstructions": "Gegner: {{keys}}"
+  "controls.opponentInstructions": "Gegner: {{keys}}",
+  "menu.stats.playersLabel": "Spieler",
+  "menu.stats.dialoguesLabel": "Dialoge"
 }

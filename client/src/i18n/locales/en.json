@@ -46,5 +46,7 @@
   "controls.player1Instructions": "Player 1: W (up) / S (down)",
   "controls.player2Instructions": "Player 2: Arrow Up / Arrow Down",
   "controls.youInstructions": "You: {{keys}}",
-  "controls.opponentInstructions": "Opponent: {{keys}}"
+  "controls.opponentInstructions": "Opponent: {{keys}}",
+  "menu.stats.playersLabel": "players",
+  "menu.stats.dialoguesLabel": "dialogues"
 }

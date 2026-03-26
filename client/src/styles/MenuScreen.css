@@ -118,6 +118,15 @@
   background: rgba(0, 217, 255, 0.1);
 }
 
+.menu-stats {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.875rem;
+  color: rgba(200, 200, 200, 0.6);
+  font-family: "Courier New", monospace;
+  letter-spacing: 1px;
+}
+
 @media (max-width: 768px) {
   .menu-title {
     font-size: 2.5rem;
@@ -130,5 +139,10 @@
   .menu-button {
     width: 100%;
     max-width: 200px;
+  }
+
+  .menu-stats {
+    gap: 1rem;
+    font-size: 0.8rem;
   }
 }
