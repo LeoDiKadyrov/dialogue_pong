@@ -135,3 +135,30 @@
 .back-button:active {
   transform: scale(0.95);
 }
+
+/* Bug report button — fixed bottom-left, mirrors "?" button at bottom-right */
+.report-bug-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 0, 110, 0.5);
+  background: rgba(10, 14, 39, 0.8);
+  color: #ff006e;
+  font-size: 1.25rem;
+  font-family: "Courier New", monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.report-bug-btn:hover {
+  border-color: #ff006e;
+  box-shadow: 0 0 16px #ff006e;
+  background: rgba(255, 0, 110, 0.1);
+}

@@ -9,8 +9,15 @@ import NetworkGame from './components/NetworkGame.jsx';
 import LanguagePicker from './components/LanguagePicker.jsx';
 import './App.css';
 
+const BUG_REPORT_BASE_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScGaAcscqVJCTBO63QjhFAcchOeGuDoKxYHnMdEO1BGqNyI4g/viewform';
+
+const HL_MAP = {
+  en: 'en', fr: 'fr', de: 'de', es: 'es',
+  pt: 'pt-BR', ru: 'ru', zh: 'zh-CN', ja: 'ja', ar: 'ar',
+};
+
 function App() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   // Game mode: 'menu' | 'local' | 'waiting' | 'online'
   const [mode, setMode] = useState('menu');
   const [networkSession, setNetworkSession] = useState(null); // { socket, playerId, roomId }
@@ -21,6 +28,8 @@ function App() {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
   }, [i18n.language]);
+
+  const bugFormUrl = `${BUG_REPORT_BASE_URL}?hl=${HL_MAP[i18n.language] || 'en'}`;
 
   /**
    * Handle Local game button
@@ -118,6 +127,16 @@ function App() {
           onPlayAgain={handlePlayAgain}
         />
       )}
+
+      <a
+        href={bugFormUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="report-bug-btn"
+        aria-label={t('controls.reportBugAria')}
+      >
+        🐛
+      </a>
     </div>
   );
 }
