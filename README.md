@@ -2,7 +2,7 @@
 
 A multiplayer web game where every paddle hit forces you to write a message to your opponent. Classic Pong mechanics, experimental dialogue experience.
 
-**[Play Now →](https://dialogue-pong.onrender.com)** *(replace with your Render URL after deploy)*
+**[Play Now →](https://dialogue-pong.onrender.com)** 
 
 ---
 
