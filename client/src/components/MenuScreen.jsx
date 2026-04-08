@@ -8,9 +8,18 @@ const STATS_POLL_MS = 30000;
 /**
  * MenuScreen — Main menu with Local / Online game options and HowToPlay modal
  */
+const DONATE_OPTIONS = [
+  { label: 'Boosty', href: 'https://boosty.to/leodikadyrov/donate', color: '#ff6b35' },
+  { label: 'Ko-fi', href: 'https://ko-fi.com/leodikadyrov', color: '#29abe0' },
+  { label: 'USDT TRC-20', href: null, copy: 'TK1a57uV8ecdjLykVmA6okpZH5bD1q5Srh', color: '#26a17b' },
+  { label: 'USDT ERC-20', href: null, copy: '0x030a1fd9b364b8ed25371ae33de368b99b2c0eb5', color: '#627eea' },
+];
+
 function MenuScreen({ onLocal, onOnline }) {
   const { t } = useTranslation();
   const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showDonate, setShowDonate] = useState(false);
+  const [copied, setCopied] = useState(null);
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
@@ -69,6 +78,50 @@ function MenuScreen({ onLocal, onOnline }) {
       >
         ?
       </button>
+
+      <button
+        className="menu-donate-btn"
+        onClick={() => setShowDonate(true)}
+        aria-label="Support the developer"
+      >
+        ♥
+      </button>
+
+      {showDonate && (
+        <div className="donate-overlay" onClick={() => setShowDonate(false)}>
+          <div className="donate-modal" onClick={e => e.stopPropagation()}>
+            <p className="donate-title">Support the dev</p>
+            {DONATE_OPTIONS.map(opt => (
+              opt.href ? (
+                <a
+                  key={opt.label}
+                  href={opt.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="donate-option"
+                  style={{ borderColor: opt.color, color: opt.color }}
+                >
+                  {opt.label}
+                </a>
+              ) : (
+                <button
+                  key={opt.label}
+                  className="donate-option donate-copy"
+                  style={{ borderColor: opt.color, color: opt.color }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(opt.copy);
+                    setCopied(opt.label);
+                    setTimeout(() => setCopied(null), 2000);
+                  }}
+                >
+                  {copied === opt.label ? '✓ Copied!' : opt.label}
+                </button>
+              )
+            ))}
+            <button className="donate-close" onClick={() => setShowDonate(false)}>✕</button>
+          </div>
+        </div>
+      )}
 
       {showHowToPlay && <HowToPlay onClose={() => setShowHowToPlay(false)} />}
     </div>
