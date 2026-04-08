@@ -6,8 +6,10 @@
 
 import { io } from 'socket.io-client';
 
-// In development, connect to local server. In production, use same origin (server serves the client).
-const SERVER_URL = import.meta.env.DEV ? 'http://localhost:3001' : '';
+// In development, connect to local server. In production, connect to Render backend.
+const SERVER_URL = import.meta.env.DEV
+  ? 'http://localhost:3001'
+  : (import.meta.env.VITE_SERVER_URL || 'https://chpong.onrender.com');
 
 let socket = null;
 

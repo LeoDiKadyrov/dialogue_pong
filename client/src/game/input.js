@@ -14,6 +14,9 @@ import {
  */
 export function createInputHandlers(keysRef) {
   const handleKeyDown = (event) => {
+    const tag = document.activeElement?.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
     if (
       event.code === KEY_P1_UP ||
       event.code === KEY_P1_DOWN ||
