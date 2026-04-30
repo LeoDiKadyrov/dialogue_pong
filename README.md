@@ -138,3 +138,5 @@ npm test
 | 5 | Sound & visual effects (Web Audio, particles) | ✅ Done |
 | 6 | Testing & optimization (58 tests, perf fixes) | ✅ Done |
 | 7 | MVP Launch (production deploy, README) | ✅ Done |
+
+https://boosty.to/leodikadyrov
